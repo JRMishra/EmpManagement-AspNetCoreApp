@@ -27,30 +27,20 @@ namespace EmpManagementWebApp
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseRouting();
-
-            app.Use(async(context, next) => {
-                logger.LogInformation("MW1 : Incoming request");
-                await next();
-                logger.LogInformation("MW1 : Outgoing response");
-            });
-
-            app.Use(async(context, next) => {
-                logger.LogInformation("MW2 : Incoming request");
-                await next();
-                logger.LogInformation("MW2 : Outgoing response");
-            });
+            FileServerOptions fileServerOptionsObj = new FileServerOptions();
+            fileServerOptionsObj.DefaultFilesOptions.DefaultFileNames.Clear();
+            fileServerOptionsObj.DefaultFilesOptions.DefaultFileNames.Add("html/default.html");
+            app.UseFileServer(fileServerOptionsObj);
 
             app.Run(async(context) => {
-                await context.Response.WriteAsync("MW3 : Request handled and response produced");
-                logger.LogInformation("MW3 : Request handled and response produced");
+                await context.Response.WriteAsync("Employee Management Tool");
             });
         }
     }

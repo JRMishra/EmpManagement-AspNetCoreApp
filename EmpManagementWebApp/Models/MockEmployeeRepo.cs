@@ -18,6 +18,7 @@ namespace EmpManagementWebApp.Models
                 new Employee(){Id = 3, Name = "Debabrata", Department = "Marketing", Email = "debabrata@mymail.com"}
             };
         }
+
         public Employee GetEmployee(int id)
         {
             return _employeeList.FirstOrDefault(emp => emp.Id == id);

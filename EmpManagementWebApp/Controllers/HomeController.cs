@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EmpManagementWebApp.Models;
+using EmpManagementWebApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EmpManagementWebApp.Controllers
@@ -16,17 +17,21 @@ namespace EmpManagementWebApp.Controllers
             _employeeRepo = employeeRepo;
         }
 
-        public string Index()
+        public ViewResult Index()
         {
-            return "Employee Name : "+ _employeeRepo.GetEmployee(1).Name;
+            var model = _employeeRepo.GetAllEmployees();
+            return View(model);
         }
 
         public ViewResult Details()
         {
-            Employee model = _employeeRepo.GetEmployee(1);
-            ViewBag.Employee = model;
-            ViewBag.PageTitle =  "Employee Details";
-            return View(model);
+            HomeDetailsViewModel homeDetailsViewModel = new HomeDetailsViewModel()
+            {
+                Employee = _employeeRepo.GetEmployee(1),
+                PageTitle = "Employee Details"
+            };
+
+            return View(homeDetailsViewModel);
         }
     }
 }

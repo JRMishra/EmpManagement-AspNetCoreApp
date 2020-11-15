@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using EmpManagementWebApp.Models;
 
 namespace EmpManagementWebApp
 {
@@ -26,6 +27,7 @@ namespace EmpManagementWebApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc(options => options.EnableEndpointRouting= false);
+            services.AddSingleton<IEmployeeRepo, MockEmployeeRepo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,10 +48,11 @@ namespace EmpManagementWebApp
 
             app.UseMvcWithDefaultRoute();
 
-            //app.Run(async(context) => {
-            //    //throw new Exception("Custom exception");
-            //    await context.Response.WriteAsync("Employee Management Tool");
-            //});
+            app.Run(async (context) =>
+            {
+                //throw new Exception("Custom exception");
+                await context.Response.WriteAsync("Employee Management Tool");
+            });
 
         }
     }

@@ -31,17 +31,22 @@ namespace EmpManagementWebApp
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                DeveloperExceptionPageOptions developerExceptionOptions = new DeveloperExceptionPageOptions();
+                developerExceptionOptions.SourceCodeLineCount = 1;
+                app.UseDeveloperExceptionPage(developerExceptionOptions);
             }
 
-            FileServerOptions fileServerOptionsObj = new FileServerOptions();
-            fileServerOptionsObj.DefaultFilesOptions.DefaultFileNames.Clear();
-            fileServerOptionsObj.DefaultFilesOptions.DefaultFileNames.Add("html/default.html");
-            app.UseFileServer(fileServerOptionsObj);
+            //FileServerOptions fileServerOptionsObj = new FileServerOptions();
+            //fileServerOptionsObj.DefaultFilesOptions.DefaultFileNames.Clear();
+            //fileServerOptionsObj.DefaultFilesOptions.DefaultFileNames.Add("food.html");
+            //app.UseFileServer(fileServerOptionsObj);
+            app.UseFileServer();
 
             app.Run(async(context) => {
-                await context.Response.WriteAsync("Employee Management Tool");
+                throw new Exception("Some error in processing the page");
+                //await context.Response.WriteAsync("Employee Management Tool");
             });
+
         }
     }
 }

@@ -35,16 +35,16 @@ namespace EmpManagementWebApp
                 developerExceptionOptions.SourceCodeLineCount = 1;
                 app.UseDeveloperExceptionPage(developerExceptionOptions);
             }
+            else if(env.IsStaging() || env.IsProduction() || env.IsEnvironment("Custom"))
+            {
+                app.UseExceptionHandler("/Error");
+            }
 
-            //FileServerOptions fileServerOptionsObj = new FileServerOptions();
-            //fileServerOptionsObj.DefaultFilesOptions.DefaultFileNames.Clear();
-            //fileServerOptionsObj.DefaultFilesOptions.DefaultFileNames.Add("food.html");
-            //app.UseFileServer(fileServerOptionsObj);
-            app.UseFileServer();
+            app.UseStaticFiles();
 
             app.Run(async(context) => {
-                throw new Exception("Some error in processing the page");
-                //await context.Response.WriteAsync("Employee Management Tool");
+                throw new Exception("Custom exception");
+                await context.Response.WriteAsync("Hosting Environment : "+env.EnvironmentName);
             });
 
         }

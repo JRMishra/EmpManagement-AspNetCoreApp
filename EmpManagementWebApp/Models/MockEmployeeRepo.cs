@@ -13,9 +13,9 @@ namespace EmpManagementWebApp.Models
         {
             _employeeList = new List<Employee>()
             {
-                new Employee(){Id = 1, Name = "Supratim", Department = "Finance", Email = "supratim@mymail.com"},
-                new Employee(){Id = 2, Name = "Sayan", Department = "Operation", Email = "sayan@mymail.com"},
-                new Employee(){Id = 3, Name = "Debabrata", Department = "Marketing", Email = "debabrata@mymail.com"}
+                new Employee(){Id = 1, Name = "Supratim", Department = Dept.Finance, Email = "supratim@mymail.com"},
+                new Employee(){Id = 2, Name = "Sayan", Department = Dept.Operation, Email = "sayan@mymail.com"},
+                new Employee(){Id = 3, Name = "Debabrata", Department = Dept.Marketing, Email = "debabrata@mymail.com"}
             };
         }
 

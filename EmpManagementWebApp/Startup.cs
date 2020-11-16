@@ -46,13 +46,8 @@ namespace EmpManagementWebApp
 
             app.UseStaticFiles();
 
-            //app.UseMvcWithDefaultRoute();
-            //app.UseMvc(routes => {
-            //    routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
-            //});
-
-            app.UseMvc();
-
+            app.UseMvcWithDefaultRoute();
+            
             app.Run(async (context) =>
             {
                 //throw new Exception("Custom exception");

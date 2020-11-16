@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EmpManagementWebApp.Controllers
 {
+    [Route("[controller]/[action]")]
     public class HomeController : Controller
     {
         private readonly IEmployeeRepo _employeeRepo;
@@ -17,12 +18,16 @@ namespace EmpManagementWebApp.Controllers
             _employeeRepo = employeeRepo;
         }
 
+        [Route("")]
+        [Route("~/Home")]
+        [Route("~/")]
         public ViewResult Index()
         {
             var model = _employeeRepo.GetAllEmployees();
             return View(model);
         }
 
+        [Route("{id?}")]
         public ViewResult Details(int? id)
         {
             HomeDetailsViewModel homeDetailsViewModel = new HomeDetailsViewModel()
@@ -30,7 +35,6 @@ namespace EmpManagementWebApp.Controllers
                 Employee = _employeeRepo.GetEmployee(id ?? 1),
                 PageTitle = "Employee Details"
             };
-
             return View(homeDetailsViewModel);
         }
     }

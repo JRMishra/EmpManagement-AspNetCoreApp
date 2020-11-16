@@ -23,11 +23,11 @@ namespace EmpManagementWebApp.Controllers
             return View(model);
         }
 
-        public ViewResult Details()
+        public ViewResult Details(int? id)
         {
             HomeDetailsViewModel homeDetailsViewModel = new HomeDetailsViewModel()
             {
-                Employee = _employeeRepo.GetEmployee(1),
+                Employee = _employeeRepo.GetEmployee(id ?? 1),
                 PageTitle = "Employee Details"
             };
 

@@ -19,6 +19,13 @@ namespace EmpManagementWebApp.Models
             };
         }
 
+        public Employee Add(Employee employee)
+        {
+            employee.Id  = _employeeList.Max(employee => employee.Id) + 1;
+            _employeeList.Add(employee);
+            return employee;
+        }
+
         public IEnumerable<Employee> GetAllEmployees()
         {
             return _employeeList;

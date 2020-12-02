@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using EmpManagementWebApp.Models;
 using EmpManagementWebApp.ViewModels;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EmpManagementWebApp.Controllers
@@ -49,12 +50,15 @@ namespace EmpManagementWebApp.Controllers
             if(ModelState.IsValid)
             {
                 string uniqueFilename = null;
-                if(model.Photo != null)
+                if(model.Photos != null && model.Photos.Count > 0)
                 {
-                    string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
-                    uniqueFilename = Guid.NewGuid().ToString() + "_" + model.Photo.FileName;
-                    string filePath = Path.Combine(uploadsFolder, uniqueFilename);
-                    model.Photo.CopyTo(new FileStream(filePath, FileMode.Create));
+                    foreach(IFormFile photo in model.Photos)
+                    {
+                        string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
+                        uniqueFilename = Guid.NewGuid().ToString() + "_" + photo.FileName;
+                        string filePath = Path.Combine(uploadsFolder, uniqueFilename);
+                        photo.CopyTo(new FileStream(filePath, FileMode.Create));
+                    }
                 }
 
                 Employee newEmployee = new Employee

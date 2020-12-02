@@ -35,5 +35,25 @@ namespace EmpManagementWebApp.Models
         {
             return _employeeList.FirstOrDefault(emp => emp.Id == id);
         }
+
+        public Employee Update(Employee employeeChanges)
+        {
+            Employee employee = _employeeList.FirstOrDefault(employee => employee.Id == employeeChanges.Id);
+            if (employee != null)
+            {
+                employee.Name = employee.Name;
+                employee.Email = employee.Email;
+                employee.Department = employee.Department;
+            }
+            return employee;
+        }
+
+        public Employee Delete(int id)
+        {
+            Employee employee = _employeeList.FirstOrDefault(employee => employee.Id == id);
+            if (employee != null)
+                _employeeList.Remove(employee);
+            return employee;
+        }
     }
 }

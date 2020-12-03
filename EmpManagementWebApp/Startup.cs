@@ -43,7 +43,7 @@ namespace EmpManagementWebApp
             }
             else if(env.IsStaging() || env.IsProduction() || env.IsEnvironment("Custom"))
             {
-                app.UseExceptionHandler("/Error");
+                app.UseStatusCodePagesWithReExecute("/Error/{0}");
             }
 
             app.UseStaticFiles();

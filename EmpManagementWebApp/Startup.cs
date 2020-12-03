@@ -50,11 +50,11 @@ namespace EmpManagementWebApp
 
             app.UseMvcWithDefaultRoute();
             
-            app.Run(async (context) =>
-            {
-                //throw new Exception("Custom exception");
-                await context.Response.WriteAsync("Employee Management Tool");
-            });
+            //app.Run(async (context) =>
+            //{
+            //    //throw new Exception("Custom exception");
+            //    await context.Response.WriteAsync("Employee Management Tool");
+            //});
 
         }
     }

@@ -13,6 +13,8 @@ using Microsoft.Extensions.Logging;
 using EmpManagementWebApp.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 namespace EmpManagementWebApp
 {
@@ -39,7 +41,13 @@ namespace EmpManagementWebApp
                 options.Password.RequiredUniqueChars = 2;
             });
 
-            services.AddMvc(options => options.EnableEndpointRouting= false);
+            services.AddMvc(options => {
+                options.EnableEndpointRouting = false;
+                var policy = new AuthorizationPolicyBuilder()
+                            .RequireAuthenticatedUser().Build();
+                options.Filters.Add(new AuthorizeFilter(policy));
+            })
+                .AddXmlSerializerFormatters();
 
             services.AddScoped<IEmployeeRepo, SqlEmployeeRepo>();
         }

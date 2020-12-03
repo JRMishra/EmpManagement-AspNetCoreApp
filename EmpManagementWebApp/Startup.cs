@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using EmpManagementWebApp.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace EmpManagementWebApp
 {
@@ -28,7 +29,12 @@ namespace EmpManagementWebApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContextPool<AppDbContext>(options => options.UseSqlServer(_config.GetConnectionString("EmployeeDbConnection")));
+
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<AppDbContext>();
+
             services.AddMvc(options => options.EnableEndpointRouting= false);
+
             services.AddScoped<IEmployeeRepo, SqlEmployeeRepo>();
         }
 
@@ -48,6 +54,8 @@ namespace EmpManagementWebApp
             }
 
             app.UseStaticFiles();
+
+            app.UseAuthentication();
 
             app.UseMvcWithDefaultRoute();
             

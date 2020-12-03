@@ -30,18 +30,14 @@ namespace EmpManagementWebApp
         {
             services.AddDbContextPool<AppDbContext>(options => options.UseSqlServer(_config.GetConnectionString("EmployeeDbConnection")));
 
-            services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<AppDbContext>();
+
+            services.Configure<IdentityOptions>(options =>
             {
                 options.Password.RequiredLength = 8;
                 options.Password.RequiredUniqueChars = 2;
-            }).AddEntityFrameworkStores<AppDbContext>();
-
-            ///Can also be used to override password rules
-            //services.Configure<IdentityOptions>(options=> 
-            //{
-            //    options.Password.RequiredLength = 8;
-            //    options.Password.RequiredUniqueChars = 2;
-            //});
+            });
 
             services.AddMvc(options => options.EnableEndpointRouting= false);
 

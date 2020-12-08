@@ -4,11 +4,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using EmpManagementWebApp.Models;
 using EmpManagementWebApp.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EmpManagementWebApp.Controllers
 {
+    /*
+     * [Authorize(Roles = "Admin")] 
+     * [Authorize(Roles = "PrimeUser")]
+     * User need to be both Admin And PrimeUser
+     */
+    [Authorize(Roles = "Admin,PrimeUser")] //User need to be either Admin Or PrimeUser
     public class AdministrationController : Controller
     {
         private readonly RoleManager<IdentityRole> roleManager;
@@ -22,6 +29,7 @@ namespace EmpManagementWebApp.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult CreateRole()
         {
             return View();
@@ -58,6 +66,7 @@ namespace EmpManagementWebApp.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> EditRole(string id)
         {
             var role = await roleManager.FindByIdAsync(id);
@@ -112,6 +121,7 @@ namespace EmpManagementWebApp.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> EditUsersInRole(string roleId)
         {
             ViewBag.roleId = roleId;

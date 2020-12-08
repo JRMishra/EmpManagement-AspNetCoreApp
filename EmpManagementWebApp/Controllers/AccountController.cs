@@ -40,7 +40,7 @@ namespace EmpManagementWebApp.Controllers
                 return Json($"Email {email} is already in use");
         }
 
-            [HttpPost]
+        [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
@@ -106,5 +106,11 @@ namespace EmpManagementWebApp.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
     }
 }
